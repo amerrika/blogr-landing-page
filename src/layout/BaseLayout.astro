@@ -1,0 +1,39 @@
+---
+import "../sass/main.scss";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import SiteMeta from "../components/SiteMeta.astro";
+const {
+  title,
+  description = "My solution to the frontend mentor challenge - Blogr Landing Page",
+  author = "Amer Tričić",
+  url,
+  image = "/social-preview-image.webp",
+} = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+
+    <!-- favicon -->
+    <link rel="icon" href="/favicon.png" />
+
+    <SiteMeta
+      title={title}
+      description={description.substring(0, 100)}
+      author={author}
+      url={url}
+      image={image}
+    />
+  </head>
+  <body>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

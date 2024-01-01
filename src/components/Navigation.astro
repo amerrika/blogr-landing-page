@@ -1,0 +1,191 @@
+---
+import "../sass/main.scss";
+---
+
+<nav
+  role="navigation"
+  id="desktop-navigation"
+  class="nav-desktop"
+  aria-label="Main"
+>
+  <ul class="menu">
+    <slot />
+  </ul>
+</nav>
+
+<nav
+  role="navigation"
+  id="mobile-navigation"
+  class="nav-mobile"
+  aria-label="Main"
+  data-active="false"
+>
+  <ul class="menu pb-6">
+    <slot />
+  </ul>
+</nav>
+
+<script>
+  // # Variables
+  const headerWrapper = document.querySelector(".header__wrapper");
+  const desktopNav = document.querySelector("#desktop-navigation");
+  const mobileNav = document.querySelector("#mobile-navigation");
+  const buttonHamburger = document.querySelector(".button-hamburger");
+  const dropdownButtons = [
+    ...document.querySelectorAll(".has-dropdown button"),
+  ];
+  const menuItems = [...desktopNav.querySelectorAll(".menu-item")];
+
+  // # Functions
+  const setActiveLink = () => {
+    const navMenus = document.querySelectorAll("nav > ul");
+    const currentPathname = window.location.pathname;
+
+    navMenus.forEach((menu) => {
+      // select all links that do not have rel containing sub string "external"
+      const navLinks = [...menu.querySelectorAll("a:not([rel*='external'])")];
+
+      navLinks.forEach((link) => {
+        if (
+          currentPathname.includes(link.pathname.replaceAll("/", "")) &&
+          link.textContent !== "Home"
+        ) {
+          link.setAttribute("aria-current", "page");
+        } else if (link.textContent === "Home" && currentPathname === "/") {
+          link.setAttribute("aria-current", "page");
+        }
+      });
+    });
+  };
+
+  const setMainNavigation = () => {
+    const headerWidth = document
+      .querySelector("header")
+      .getBoundingClientRect().width;
+    const desktopNavWidth = desktopNav.getBoundingClientRect().width;
+    const logoWidthBuffer = 300;
+    const totalWidth = Math.round(desktopNavWidth) + logoWidthBuffer;
+
+    // setting attributes & classes for mobile
+    if (headerWidth <= totalWidth) {
+      desktopNav.setAttribute("data-is-desktop", "false");
+      buttonHamburger.classList.add("display-grid");
+      headerWrapper.classList.add("is-mobile");
+      // setting attributes & classes for desktop
+    } else if (headerWidth >= totalWidth) {
+      desktopNav.setAttribute("data-is-desktop", "true");
+      mobileNav.setAttribute("data-active", "false");
+      buttonHamburger.classList.remove("display-grid");
+      headerWrapper.classList.remove("is-mobile");
+    }
+  };
+
+  const openDropdownMenu = (dropdownButton) => {
+    dropdownButton.setAttribute("aria-expanded", "true");
+  };
+  
+  const closeDropdownMenu = (dropdownButton) => {
+    dropdownButton.setAttribute("aria-expanded", "false");
+  };
+
+  const closeAllDropdownMenus = () => {
+    for (let i = 0; i < dropdownButtons.length; i++) {
+      closeDropdownMenu(dropdownButtons[i]);
+    }
+  };
+
+  // # Executions
+  desktopNav.addEventListener("keydown", (event) => {
+    // ## Enabling users to use arrow keys for moving between nav links
+    const currentMenuItem = event.target.closest(".menu-item");
+    const currentIndex = menuItems.findIndex(
+      (item) => item === currentMenuItem
+    );
+
+    const { key } = event;
+    let targetItem;
+
+    if (key === "ArrowRight") {
+      if (currentIndex === menuItems.length - 1) {
+        targetItem = menuItems[0];
+      } else {
+        targetItem = menuItems[currentIndex + 1];
+      }
+    }
+
+    if (key === "ArrowLeft") {
+      if (currentIndex === 0) {
+        targetItem = menuItems[menuItems.length - 1];
+      } else {
+        targetItem = menuItems[currentIndex - 1];
+      }
+    }
+
+    if (key === "Escape") {
+      targetItem = menuItems[0];
+    }
+
+    // ## Enabling users to use arrow keys for opening/closing dropdown menus
+    const currentDropdownButton = event.target.closest(".has-dropdown button");
+    const currentSubmenuItem = event.target.closest(".has-dropdown li");
+
+    if (currentDropdownButton) {
+      const firstSubmenuItem =
+        currentDropdownButton.nextElementSibling.querySelector("li");
+      if (key === "ArrowDown") {
+        event.preventDefault();
+        openDropdownMenu(currentDropdownButton);
+        targetItem = firstSubmenuItem;
+      }
+
+      if (key === "Escape") {
+        closeDropdownMenu(currentDropdownButton);
+      }
+    }
+
+    // ## Enabling users to use arrow keys for moving between submenu links
+    if (currentSubmenuItem) {
+      const currentDropdownMenu = currentSubmenuItem.parentNode;
+      const submenuItems = [...currentDropdownMenu.querySelectorAll("li")];
+      const currentIndex = submenuItems.findIndex(
+        (item) => item === currentSubmenuItem
+      );
+
+      if (key === "ArrowDown") {
+        event.preventDefault();
+
+        if (currentIndex === submenuItems.length - 1) {
+          targetItem = submenuItems[0];
+        } else {
+          targetItem = submenuItems[currentIndex + 1];
+        }
+      }
+
+      if (key === "ArrowUp") {
+        event.preventDefault();
+
+        if (currentIndex === 0) {
+          targetItem = submenuItems[submenuItems.length - 1];
+        } else {
+          targetItem = submenuItems[currentIndex - 1];
+        }
+      }
+
+      if (key === "Escape") {
+        const currentDropdownButton =
+          currentDropdownMenu.previousElementSibling;
+        targetItem = currentDropdownButton.parentNode;
+        closeAllDropdownMenus();
+      }
+    }
+
+    if (targetItem) {
+      targetItem.querySelector("a, button").focus();
+    }
+  });
+
+  setActiveLink();
+  setMainNavigation();
+
+  window.onresize = setMainNavigation;
+</script>

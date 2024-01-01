@@ -1,0 +1,77 @@
+---
+import "../../sass/main.scss";
+const { title = "Button name missing", ...rest } = Astro.props;
+---
+
+<button
+  class="button-dropdown"
+  aria-haspopup="true"
+  aria-expanded="false"
+  {...rest}
+>
+  {title}
+</button>
+<slot />
+
+<script>
+  // Variables
+  const buttons = [...document.querySelectorAll(".button-dropdown")];
+  const html = document.documentElement;
+
+  // Functions
+  const isOutOfViewport = (element) => {
+    const elementBounds = element.getBoundingClientRect();
+    // console.log(`right: ${elementBounds.right}`)
+    // console.log(`left: ${elementBounds.left}`)
+    // console.log(`window width: ${window.innerWidth}`)
+    // console.log(document.documentElement.clientWidth)
+    return (
+      elementBounds.right >
+      (window.innerWidth || document.documentElement.clientWidth)
+    );
+  };
+
+  const openMenu = (button) => {
+    const Menu = button.parentNode.querySelector("ul");
+    button.setAttribute("aria-expanded", "true");
+
+    if (isOutOfViewport(Menu)) {
+      Menu.style.left = "auto";
+    }
+  };
+
+  const closeMenu = (button) => {
+    button.setAttribute("aria-expanded", "false");
+  };
+
+  const closeAllMenus = () => {
+    for (let i = 0; i < buttons.length; i++) {
+      buttons[i].setAttribute("aria-expanded", "false");
+    }
+  };
+
+  const toggleMenu = (event) => {
+    if (event.target.getAttribute("aria-expanded") === "false") {
+      // Close all (possibly opened) menus
+      closeAllMenus();
+      openMenu(event.target);
+    } else {
+      closeMenu(event.target);
+    }
+  };
+
+  // execution
+  buttons &&
+    buttons.forEach((button) => {
+      button.addEventListener("click", toggleMenu);
+    });
+
+  // Close dropdown menu when clicked outside the button
+  html.addEventListener("click", (e) => {
+    buttons.forEach((button) => {
+      if (e.target !== button) {
+        button.setAttribute("aria-expanded", "false");
+      }
+    });
+  });
+</script>

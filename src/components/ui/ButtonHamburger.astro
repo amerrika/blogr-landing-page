@@ -1,0 +1,34 @@
+---
+import "../../sass/main.scss";
+---
+
+<button
+  class="button-hamburger"
+  aria-expanded="false"
+  aria-label="Open navigation menu"
+  aria-controls="mobile-navigation"
+>
+  <span class="line line-1"></span>
+  <span class="line line-2"></span>
+  <span class="line line-3"></span>
+</button>
+
+<script>
+  // variables
+  const toggleButton = document.querySelector(".button-hamburger");
+  const mobileNav = document.querySelector("#mobile-navigation");
+
+  // execution
+  // data-active=true/false on mobile nav => mobile menu open/close
+  toggleButton.addEventListener("click", () => {
+    if (mobileNav.getAttribute("data-active") === "false") {
+      mobileNav.setAttribute("data-active", "true");
+      toggleButton.setAttribute("aria-expanded", "true");
+      toggleButton.setAttribute("aria-label", "Close navigation menu");
+    } else {
+      mobileNav.setAttribute("data-active", "false");
+      toggleButton.setAttribute("aria-expanded", "false");
+      toggleButton.setAttribute("aria-label", "Open navigation menu");
+    }
+  });
+</script>

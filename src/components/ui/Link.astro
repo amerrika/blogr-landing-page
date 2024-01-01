@@ -1,0 +1,23 @@
+---
+import "../../sass/main.scss";
+
+const {
+  title,
+  href = "#",
+  external,
+  style = "primary",
+  className,
+  ...rest
+} = Astro.props;
+---
+
+<a
+  href={href}
+  target={external ? "_blank" : null}
+  rel={external ? "external noopener" : null}
+  class:list={["button", className]}
+  data-style={style}
+  {...rest}
+>
+  {title}
+</a>

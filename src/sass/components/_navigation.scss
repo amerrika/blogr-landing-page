@@ -1,0 +1,101 @@
+@use "../abstracts/" as *;
+
+.nav-desktop {
+  &[data-is-desktop="false"] {
+    visibility: hidden;
+    height: 0;
+  }
+
+  .menu {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+
+    @include mq(750px) {
+      & > :nth-child(4) {
+        position: absolute;
+        right: 15rem;
+      }
+      & > :last-child {
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+}
+
+.nav-mobile {
+  width: 100%;
+  display: none;
+  border: 2px solid $neutral-100;
+  border-radius: 2rem;
+
+  &[data-active="true"] {
+    display: block;
+  }
+
+  .menu {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    & > * {
+      align-self: center;
+    }
+  }
+}
+
+// Nav links styling
+.nav-desktop,
+.nav-mobile,
+.has-dropdown {
+  a,
+  button {
+    font-family: $navigation-link-ff;
+    color: $navigation-link-clr;
+    letter-spacing: $navigation-link-ls;
+    font-size: $navigation-link-fs;
+    font-weight: $navigation-link-fw;
+
+    @include focus;
+    @include hover;
+
+    // active link
+    &[aria-current="page"] {
+      font-weight: $navigation-link-active-fw;
+    }
+  }
+}
+
+// Extra mobile nav-link stylings
+.nav-mobile {
+  a,
+  .has-dropdown {
+    display: block;
+  }
+}
+
+// Dropdown
+.has-dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 15px 25px #00000026;
+  min-width: 180px;
+  position: absolute;
+  inset: 140% 0 auto;
+  z-index: 100;
+  background-color: $neutral-100;
+  border-radius: 0.5rem;
+  transform: translateX(-25%);
+
+  a {
+    color: $neutral-800;
+    font-weight: $fw-400;
+  }
+}

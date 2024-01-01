@@ -1,0 +1,89 @@
+@use "typography" as *;
+@use "colors" as *;
+@use "sizes" as *;
+@use "shadows" as *;
+
+// BODY
+$body-txt-clr: $neutral-900;
+$body-bg-clr: $neutral-100;
+// LAYOUT
+$grid-gap: 5rem;
+
+// BUTTONS
+$button-ff: $ff-base;
+$button-fs: $fs-500;
+$button-fw: $fw-medium;
+$button-ls: 0;
+$button-tt: unset;
+$button-padding: 0.5em 1.75em;
+$button-default-bg: transparent;
+$button-border: 2px solid $neutral-900;
+$button-br: 2rem;
+// Primary
+$button-primary-bg: $neutral-900;
+$button-primary-clr: $neutral-100;
+$button-primary-border-clr: $neutral-900;
+// Outline
+$button-outline-bg: transparent;
+$button-outline-clr: $neutral-900;
+$button-outline-border-clr: $neutral-900;
+// Inverted
+$button-inverted-bg: $neutral-100;
+$button-inverted-clr: $neutral-900;
+$button-inverted-border-clr: $neutral-100;
+// Muted
+$button-muted-padding: 0;
+$button-muted-bg: transparent;
+$button-muted-clr: $neutral-900;
+$button-muted-border-clr: transparent;
+
+// HEADINGS
+$heading-ff: $ff-accent;
+$heading-tt: unset;
+$heading-ls: 1px;
+$heading-line-height: 1.1;
+$heading-clr-default: $neutral-900;
+
+$heading-1-fs: $fs-h1;
+$heading-1-fw: $fw-regular;
+$heading-1-clr: $heading-clr-default;
+
+$heading-2-fs: $fs-h2;
+$heading-2-fw: $fw-regular;
+$heading-2-clr: $project-blue-500;
+
+$heading-3-fs: $fs-h3;
+$heading-3-fw: $fw-regular;
+$heading-3-clr: $project-blue-500;
+
+// FOOTER
+$footer-bg-clr: $project-blue-900;
+$footer-clr: $neutral-700;
+$footer-fs: $fs-300;
+$footer-fw: $fw-regular;
+// link
+$footer-link-ff: $ff-base;
+$footer-link-clr: $neutral-400;
+$footer-link-ls: 0;
+$footer-link-fs: $fs-500;
+$footer-link-fw: $fw-medium;
+
+// HEADER
+$header-box-shadow: none;
+$header-bg-clr: transparent;
+$header-fs: $fs-500;
+$header-fw: $fw-regular;
+
+// NAVIGATION
+// link
+$navigation-link-ff: $ff-base;
+$navigation-link-clr: $neutral-900;
+$navigation-link-clr-hover: $neutral-900;
+$navigation-link-ls: 0;
+$navigation-link-fs: $fs-300;
+$navigation-link-fw: $fw-medium;
+// active
+$navigation-link-active-fw: $fw-bold;
+// mobile
+$mobile-nav-link-border-bottom-clr: $neutral-300;
+

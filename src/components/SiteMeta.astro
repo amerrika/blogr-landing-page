@@ -1,0 +1,23 @@
+---
+const { description, author, url, image } = Astro.props;
+
+let subtitle = "Frontend Mentor - Blogr Landing Page";
+---
+
+<!-- general meta -->
+<meta name="title" content={`${subtitle}`} />
+<meta name="description" content={description} />
+<meta name="author" content={author} />
+
+<!-- open graph -->
+<meta property="og:title" content={`${subtitle}`} />
+<meta property="og:description" content={description} />
+<meta property="og:type" content="website" />
+<meta property="og:url" content={url} />
+<meta
+  property="og:image"
+  content={Astro.site ? `${Astro.site}${image}` : image}
+/>
+
+<!-- page title -->
+<title>{subtitle}</title>

@@ -1,0 +1,54 @@
+$colors: (
+  "neutral": (
+    "0": transparent,
+    "100": #ffffff,
+    "200": #f5f7fb,
+    "300": #e7eaf4,
+    "400": #c5c9da,
+    "500": #b0b4c5,
+    "600": #777c88,
+    "700": #64748b,
+    "800": #52555d,
+    "900": #0d0e10,
+  ),
+  "alert": (
+    "red": #a31000,
+    "green": #567911,
+  ),
+  "project": (
+    "red-100": hsl(355, 100%, 74%),
+    "red-200": hsl(13, 100%, 72%),
+    "red-500": hsl(353, 100%, 62%),
+    ////////////////////////////////
+    "blue-100": hsl(240, 2%, 79%),
+    "blue-300": hsl(207, 13%, 34%),
+    "blue-400": hsl(237, 23%, 32%),
+    "blue-500": hsl(208, 49%, 24%),
+    "blue-800": hsl(237, 17%, 21%),
+    "blue-900": hsl(240, 10%, 16%),
+  ),
+);
+
+$neutral-100: #ffffff;
+$neutral-200: #f5f7fb;
+$neutral-300: #e7eaf4;
+$neutral-400: #c5c9da;
+$neutral-500: #b0b4c5;
+$neutral-600: #777c88;
+$neutral-700: #64748b;
+$neutral-800: #52555d;
+$neutral-900: #0d0e10;
+
+$alert-red: #a31000;
+$alert-green: #567911;
+
+$project-red-100: hsl(355, 100%, 74%);
+$project-red-200: hsl(13, 100%, 72%);
+$project-red-500: hsl(353, 100%, 62%);
+
+$project-blue-100: hsl(240, 2%, 79%);
+$project-blue-300: hsl(207, 13%, 34%);
+$project-blue-400: hsl(237, 23%, 32%);
+$project-blue-500: hsl(208, 49%, 24%);
+$project-blue-800: hsl(237, 17%, 21%);
+$project-blue-900: hsl(240, 10%, 16%);
